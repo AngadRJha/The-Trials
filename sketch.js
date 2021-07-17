@@ -4,6 +4,7 @@ for(var i = lives; i > 0; i--){
     }
 */
 var database
+
 var N1load,N1load2,N1
 var Life=3
 var shotsound,TM
@@ -50,12 +51,13 @@ function setup() {
   createCanvas(800,400);
   database=firebase.database()
   Bg_Music.loop()
-
+  
   var background=createSprite(400,200,800,400)
   background.addImage(backgroundload)
   background.scale=0.7
   background.x=400
   background.y=200
+
 
 
   //opening logo
@@ -136,6 +138,8 @@ function setup() {
   
   //Logo.debug="true";
   Logo.setCollider("Rectangle",0,-100,500,500)
+  N1.debug="true"
+ 
   }
 
   function draw() {
@@ -157,14 +161,18 @@ function setup() {
     PotBroke=0
     highground.y = N1.y + 80;
   }
-
+  
+ 
   //GameState = START
   if(gameState === "Start"){
+   
     if(Life==3){
       Life1.visible=true
       Life2.visible=true
       Life3.visible=true
     }
+
+    
     textSize(20)
     fill("white")
     text("Score: "+PotBroke,560,25)
@@ -185,6 +193,7 @@ function setup() {
     if(mouseY>33){
     N1.y = mouseY;
     }
+    
     highground.y=N1.y+80
     
     //spawn the bullet
@@ -194,7 +203,7 @@ function setup() {
    
     //Destroy the pots
     
-    
+    console.log(N1.y)
       
     //Space key => waiting animation
     if(N1.y<360){
@@ -216,6 +225,7 @@ function setup() {
           BirdCry.play()
         }
       }
+    }
     }
     if(Life===2){
       Life1.visible=false;
@@ -269,7 +279,7 @@ imageMode(CENTER)
 
 text("Highest: "+crashScore,430,25)
 
-  }
+  
   function spawnClouds() {
   //write code here to spawn the clouds
     if (frameCount % 40 === 0) {
@@ -325,7 +335,7 @@ function spawnBullet(){
  }
 
 function spawnPots(){
-  if(frameCount%20 === 0){
+  if(frameCount%18 === 0){
     Pot = createSprite(200,-10,10,10)
     Pot.addImage(Potload);
     Pot.scale=0.5
@@ -338,10 +348,10 @@ function spawnPots(){
    }
  }
  function spawnBirds(){
-   if(frameCount%60===0){
+   if(frameCount%50===0){
   bird=createSprite(800,200,20,20);
   bird.addAnimation("Fly",birdLoad);
-  bird.y=Math.round(random(0,350))
+  bird.y=Math.round(random(-20,350))
   bird.lifetime=180
   bird.velocityX=-7
   bird.depth=PotGrp.depth
